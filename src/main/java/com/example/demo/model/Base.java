@@ -9,10 +9,14 @@ import javax.validation.constraints.NotBlank;
 public class Base implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @NotBlank
     private String name;
+
+    public Integer getId() {
+        return id;
+    }
 
     public String getName() {
 	return name;
