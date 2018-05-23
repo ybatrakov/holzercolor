@@ -1,0 +1,144 @@
+hr {
+  height: 1px;
+  width: 50%;
+  color: #000000;
+  background-color: #000000;
+  text-align:left;
+  margin-left:0;
+}
+
+#maintbl, #signature_tbl {
+   table-layout: fixed;
+   width: 640px;
+   border-style: none;
+}
+
+table {
+   border-collapse: separate;
+   border-spacing: 2px;
+   padding: 5px;
+   width: 100%;
+}
+
+#title {
+   width: 640px;
+   font-size: large;
+   text-align: center;
+   font-weight: bold;
+}
+
+#palettes {
+   width: 640px;
+   text-align: center;
+   padding-top: 10px;
+}
+
+#palettes button {
+   border: none;
+   outline: none;
+   background-color: inherit;
+   text-decoration: underline;
+}
+
+#palettes button.active {
+   text-decoration: none;
+}
+
+#color_place {
+   height: 250px;
+   border: 1px solid black;
+   text-align: center;
+}
+
+#table_colorant span { 
+   display:block; 
+   width:100px; 
+   height:16px; 
+   border:1px solid black; 
+   text-align:right; 
+   padding:0px 5px; 
+}
+
+#table_colorant_col1 {
+   width: 70%;
+}
+
+#table_colorant_col2 {
+   width: 30%;
+}
+
+#coloring_volume {
+   width: 100px;
+   text-align: center;
+}
+
+#coloring_price, #base_place {
+   display:inline-block;
+   width:100px;
+   text-align: center;
+}
+
+#paint_select {
+   min-width: 100px;
+}
+
+#sig_agr {
+   text-align: right;
+   padding-right: 20px;
+   height: 50px;
+}
+
+#signature_tbl tr {
+   vertical-align: bottom;
+}
+
+.colorant {
+   text-align: right;
+   font-weight: bold;
+}
+
+.bordered {
+   border:1px solid black;
+}
+
+.big_td {
+   border:1px solid black;
+   height: 40px;
+   padding: 10px;
+}
+
+.half_width {
+   width: 50%;
+}
+
+.param_val {
+   border:1px solid black;
+   min-width: 200px;
+   width: 200px;
+}
+
+#fee_block {
+   display: inline;
+}
+
+#coloring_fee {
+   min-width: 50px;
+   width: 50px;
+}
+
+body {
+    background-color: #fff;
+    color: #333;
+    font-family: verdana, arial, helvetica, sans-serif;
+    font-size: 13px;
+    line-height: 18px; }
+
+p, ol, ul, td {
+    font-family: verdana, arial, helvetica, sans-serif;
+    font-size: 13px;
+    line-height: 18px; }
+
+pre {
+    background-color: #eee;
+    padding: 10px;
+    font-size: 11px; }

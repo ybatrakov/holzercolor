@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+  <title>Колеровка красок по системе Holzer Color</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="chosen.jquery.min.js"></script>
+  <script src="main.js"></script>
+  <link href="main.css" rel="stylesheet">
+  <link href="chosen.min.css" rel="stylesheet">
+</head>
+<body>
+    <div id="title">Колеровка красок по системе Holzer Color<br/>(цветовой веер <span id="palette-type"></span>)</div>
+    <div id="palettes"></div>
+    <table id="maintbl">
+      <col class="half_width" />
+      <col class="half_width" />
+
+      <tr>
+        <td valign="top" class="bordered">
+          <table>
+            <tr>
+              <td>Выберите цвет</td>
+            </tr>
+            <tr>
+              <td><select class="param_val" id="palette_select"></select></td>
+            </tr>
+
+            <tr>
+              <td>Выберите краску</td>
+            </tr>
+            <tr>
+              <td></td>
+            </tr>
+
+            <tr>
+              <td>Необходима база</td>
+            </tr>
+            <tr>
+              <td><label class="param_val" id="base_place" for="base_place">A</label></td>
+            </tr>
+
+            <tr>
+              <td>Введите необходимый объем колеровки</td>
+            </tr>
+            <tr>
+              <td><input class="param_val" id="coloring_volume" type="text" value="20"/> <label id="pack_place" for="coloring_volume"></label></td>
+            </tr>
+          </table>
+        </td>
+        <td valign="top" class="bordered">
+          <table id="table_colorant">
+            <col id="table_colorant_col1" />
+            <col id="table_colorant_col2" />
+            <tr>
+              <td align="right">Колорант</td>
+              <td align="center">Расход, мл</td>
+            </tr>
+            <tr>
+              <td class="colorant">RT</td>
+              <td><span id="rt"></span></td>
+            </tr>
+            <tr>
+              <td class="colorant">FT</td>
+              <td><span id="ft"></span></td>
+            </tr>
+            <tr>
+              <td class="colorant">HS</td>
+              <td><span id="hs"></span></td>
+            </tr>
+            <tr>
+              <td class="colorant">RS</td>
+              <td><span id="rs"></span></td>
+            </tr>
+            <tr>
+              <td class="colorant">LS</td>
+              <td><span id="ls"></span></td>
+            </tr>
+            <tr>
+              <td class="colorant">LT</td>
+              <td><span id="lt"></span></td>
+            </tr>
+            <tr>
+              <td class="colorant">MS</td>
+              <td><span id="ms"></span></td>
+            </tr>
+            <tr>
+              <td class="colorant">TT</td>
+              <td><span id="tt"></span></td>
+            </tr>
+            <tr>
+              <td class="colorant">MT</td>
+              <td><span id="mt"></span></td>
+            </tr>
+            <tr>
+              <td class="colorant">PT</td>
+              <td><span id="pt"></span></td>
+            </tr>
+            <tr>
+              <td class="colorant">KS</td>
+              <td><span id="ks"></span></td>
+            </tr>
+            <tr>
+              <td class="colorant">ST</td>
+              <td><span id="st"></span></td>
+            </tr>
+            <tr>
+              <td class="colorant">US</td>
+              <td><span id="us"></span></td>
+            </tr>
+            <tr>
+              <td class="colorant">VT</td>
+              <td><span id="vt"></span></td>
+            </tr>
+            <tr>
+              <td class="colorant">ZT</td>
+              <td><span id="zt"></span></td>
+            </tr>
+            <tr>
+              <td class="colorant">XT</td>
+              <td><span id="xt"></span></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td class="big_td" colspan="2">Конечная стоимость колеровки р. <div id="fee_block">Наценка</div></td>
+      </tr>
+    </table>
+    <table id="signature_tbl">
+      <col class="half_width" />
+      <col class="half_width" />
+      <tr>
+        <td id="sig_agr">Согласие клиента</td>
+        <td valign="bottom"><hr /></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>подпись</td>
+      </tr>
+    </table>
+</body>

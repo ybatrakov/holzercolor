@@ -17,6 +17,9 @@ public class PaletteType implements Serializable {
     @NotBlank
     private String nick;
 
+    @NotBlank
+    private String shortName;
+
     public Integer getId() {
         return id;
     }
@@ -35,5 +38,13 @@ public class PaletteType implements Serializable {
 
     public void setNick(String nick) {
         this.nick = nick;
+    }
+
+    public String getShortName() {
+        return shortName;
+    }
+
+    public void setShortName(String shortName) {
+        this.shortName = shortName;
     }
 }
