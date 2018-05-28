@@ -1,6 +1,8 @@
 package com.example.demo.model;
 
 import java.io.Serializable;
+import java.util.Set;
+import java.util.HashSet;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
@@ -26,6 +28,13 @@ public class Paint implements Serializable {
 
     @OneToOne
     private Packing packing;
+
+    @ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(name = "color_formulas",
+               joinColumns = { @JoinColumn(name = "paint_id") },
+               inverseJoinColumns = { @JoinColumn(name = "palette_id") }
+               )
+    Set<Palette> palettes = new HashSet<>();
 
     public Integer getId() {
         return id;

@@ -3,24 +3,12 @@ package com.example.demo.model;
 import java.io.Serializable;
 import javax.persistence.*;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
 @Entity
-@Table(name = "color_formulas")
-@JsonSerialize(using = ColorFormulaSerializer.class)
-public class ColorFormula implements Serializable {
+@Table(name = "paint_prices")
+public class PaintPrice implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    @ManyToOne
-    private Paint paint;
-
-    @ManyToOne
-    private Palette palette;
-
-    @ManyToOne
-    private Base base;
 
     private Double ft;
     private Double hs;
@@ -38,10 +26,6 @@ public class ColorFormula implements Serializable {
     private Double vt;
     private Double xt;
     private Double zt;
-
-    public Base getBase() {
-        return base;
-    }
 
     public Integer getId() {
         return id;

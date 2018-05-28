@@ -30,7 +30,7 @@
               <td>Выберите краску</td>
             </tr>
             <tr>
-              <td></td>
+              <td><select class="param_val" id="paint_select"></select></td>
             </tr>
 
             <tr>
@@ -44,7 +44,7 @@
               <td>Введите необходимый объем колеровки</td>
             </tr>
             <tr>
-              <td><input class="param_val" id="coloring_volume" type="text" value="20"/> <label id="pack_place" for="coloring_volume"></label></td>
+              <td><div class="param_val"><input id="coloring_volume" type="text" value="20"/><label id="pack_place" for="coloring_volume"></label></div></td>
             </tr>
           </table>
         </td>
@@ -124,7 +124,8 @@
         </td>
       </tr>
       <tr>
-        <td class="big_td" colspan="2">Конечная стоимость колеровки р. <div id="fee_block">Наценка</div></td>
+        <td class="big_td" colspan="2">Конечная стоимость колеровки <span id="coloring_price" class="bordered">0</span> р. <div id="fee_block">Наценка <input id="coloring_fee" type="number" value="0"/> % <button id="set_fee">Установить</button></div></td>
+      </tr>
       </tr>
     </table>
     <table id="signature_tbl">

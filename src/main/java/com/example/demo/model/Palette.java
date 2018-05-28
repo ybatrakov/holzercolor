@@ -1,6 +1,8 @@
 package com.example.demo.model;
 
 import java.io.Serializable;
+import java.util.Set;
+import java.util.HashSet;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
@@ -18,6 +20,9 @@ public class Palette implements Serializable {
 
     @ManyToOne
     private PaletteType paletteType;
+
+    @ManyToMany(mappedBy = "palettes")
+    private Set<Paint> paints = new HashSet<>();
 
     public Integer getId() {
         return id;
