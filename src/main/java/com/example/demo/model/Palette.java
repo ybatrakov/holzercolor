@@ -24,6 +24,9 @@ public class Palette implements Serializable {
     @ManyToMany(mappedBy = "palettes")
     private Set<Paint> paints = new HashSet<>();
 
+    @ManyToMany(mappedBy = "palettesFacade")
+    private Set<Paint> paintsFacade = new HashSet<>();
+    
     public Integer getId() {
         return id;
     }

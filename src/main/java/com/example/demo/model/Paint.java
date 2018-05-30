@@ -36,6 +36,13 @@ public class Paint implements Serializable {
                )
     Set<Palette> palettes = new HashSet<>();
 
+    @ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(name = "color_formulas_facade",
+               joinColumns = { @JoinColumn(name = "paint_id") },
+               inverseJoinColumns = { @JoinColumn(name = "palette_id") }
+               )
+    Set<Palette> palettesFacade = new HashSet<>();
+    
     public Integer getId() {
         return id;
     }

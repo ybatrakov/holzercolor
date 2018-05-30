@@ -10,6 +10,8 @@ public class PaintPrice implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    private String name;
+
     private Double ft;
     private Double hs;
     private Double ks;
@@ -93,5 +95,9 @@ public class PaintPrice implements Serializable {
 
     public Double getZt() {
         return zt;
+    }
+
+    public String name() {
+        return name;
     }
 }
