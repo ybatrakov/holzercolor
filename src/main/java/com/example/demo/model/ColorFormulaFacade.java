@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 import java.io.Serializable;
+import java.util.Map;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -22,93 +23,164 @@ public class ColorFormulaFacade implements Serializable {
     @ManyToOne
     private Base base;
 
-    private Double ba;
-    private Double be;
-    private Double je;
-    private Double jo;
-    private Double jp;
-    private Double lt;
-    private Double ma;
-    private Double na;
-    private Double op;
-    private Double ov;
-    private Double ra;
-    private Double rp;
-    private Double rv;
-    private Double tt;
-    private Double vi;
-    private Double vr;
-        
-
-    public Base getBase() {
-        return base;
-    }
+    private double ba;
+    private double be;
+    private double je;
+    private double jo;
+    private double jp;
+    private double lt;
+    private double ma;
+    private double na;
+    private double op;
+    private double ov;
+    private double ra;
+    private double rp;
+    private double rv;
+    private double tt;
+    private double vi;
+    private double vr;
 
     public Integer getId() {
         return id;
     }
 
-    public Double getBa() {
+    public Base getBase() {
+        return base;
+    }
+
+    public void setBase(Base base) {
+        this.base = base;
+    }
+
+    public void setPaint(Paint paint) {
+        this.paint = paint;
+    }
+
+    public void setPalette(Palette palette) {
+        this.palette = palette;
+    }
+
+    public double getBa() {
         return ba;
     }
 
-    public Double getBe() {
+    public double getBe() {
         return be;
     }
 
-    public Double getJe() {
+    public double getJe() {
         return je;
     }
 
-    public Double getJo() {
+    public double getJo() {
         return jo;
     }
 
-    public Double getJp() {
+    public double getJp() {
         return jp;
     }
 
-    public Double getLt() {
+    public double getLt() {
         return lt;
     }
 
-    public Double getMa() {
+    public double getMa() {
         return ma;
     }
 
-    public Double getNa() {
+    public double getNa() {
         return na;
     }
 
-    public Double getOp() {
+    public double getOp() {
         return op;
     }
 
-    public Double getOv() {
+    public double getOv() {
         return ov;
     }
 
-    public Double getRa() {
+    public double getRa() {
         return ra;
     }
 
-    public Double getRp() {
+    public double getRp() {
         return rp;
     }
 
-    public Double getRv() {
+    public double getRv() {
         return rv;
     }
 
-    public Double getTt() {
+    public double getTt() {
         return tt;
     }
 
-    public Double getVi() {
+    public double getVi() {
         return vi;
     }
 
-    public Double getVr() {
+    public double getVr() {
         return vr;
+    }
+
+    public void setColorants(Map<String, Double> values) {
+        for(Map.Entry<String, Double> e : values.entrySet()) {
+            double price = e.getValue();
+                
+            // Reflection?
+            switch(e.getKey().toLowerCase()) {
+            case "ba" :
+                ba = price;
+                break;
+            case "be" :
+                be = price;
+                break;
+            case "je" :
+                je = price;
+                break;
+            case "jo" :
+                jo = price;
+                break;
+            case "ma" :
+                ma = price;
+                break;
+            case "na" :
+                na = price;
+                break;
+            case "ov" :
+                ov = price;
+                break;
+            case "ra" :
+                ra = price;
+                break;
+            case "rv" :
+                rv = price;
+                break;
+            case "vi" :
+                vi = price;
+                break;
+            case "vr" :
+                vr = price;
+                break;
+            case "op" :
+                op = price;
+                break;
+            case "jp" :
+                jp = price;
+                break;
+            case "rp" :
+                rp = price;
+                break;
+            case "tt" :
+                tt = price;
+                break;
+            case "lt" :
+                lt = price;
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown colorant " + e.getKey());
+            }
+        }
     }
 }

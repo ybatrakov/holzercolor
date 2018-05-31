@@ -16,8 +16,13 @@ public class PaintController {
     PaintRepository paintRepository;
 
     @GetMapping("/paints")
-    public Iterable<Paint> getPaints(Integer paletteId) {
-	return paletteId != null ? paintRepository.getByPaletteId(paletteId) : paintRepository.findAll();
+    public Iterable<Paint> getPaints(Integer paletteId, Boolean facade) {
+        if(paletteId == null) {
+            return paintRepository.findAll();
+        }
+        
+	return ( facade == null || facade.booleanValue() == false ) ?
+            paintRepository.getByPaletteId(paletteId) : paintRepository.getFacadeByPaletteId(paletteId);
     }
 
     @GetMapping("/paints/{id}")

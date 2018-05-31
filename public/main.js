@@ -35,7 +35,7 @@ function renderCurrentPaint() {
     $('#pack_place').text(pack_name);
 
     // Rendering the formula for current paint and palette
-    var url = '/api/color_formulas?paletteId=' + $('#palette_select').val() + '&paintId=' + cur.val();
+    var url = colorFormulasUrl() + '?paletteId=' + $('#palette_select').val() + '&paintId=' + cur.val();
     $.ajax({
         url: url,
         success:
@@ -67,7 +67,7 @@ function renderCurrentPalette() {
 
     // Building select box with paints for current palette
     $.ajax({
-        url: '/api/paints?paletteId=' + cur.val(),
+        url: paintsForPaletteUrl(cur.val()),
         success:
             function(paints) {
                 paints.forEach( function(paint) {
@@ -144,7 +144,7 @@ $(document).ready(function() {
     });
 
     $.ajax({
-        url: '/api/paint_price',
+        url: paintPriceUrl(),
         success: function(paint_price) {
             $('body').data('price', paint_price);
         }
@@ -155,12 +155,14 @@ $(document).ready(function() {
         success:
             function(data) {
                 data.forEach(function(p) {
-                    $('<button>', {
-                        id: 'pt' + p.nick,
-                        class: 'tab-links',
-                        text: p.shortName,
-                        onClick: "renderPalettes(event, '" + p.nick +"', '" + p.shortName + "')"
-                    }).appendTo('#palettes');
+                    if(checkPalette(p)) {
+                        $('<button>', {
+                            id: 'pt' + p.nick,
+                            class: 'tab-links',
+                            text: p.shortName,
+                            onClick: "renderPalettes(event, '" + p.nick +"', '" + p.shortName + "')"
+                        }).appendTo('#palettes');
+                    }
                 });
                 renderPalettes(event, data[0].nick, data[0].shortName)
             }

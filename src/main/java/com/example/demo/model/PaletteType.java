@@ -20,6 +20,8 @@ public class PaletteType implements Serializable {
     @NotBlank
     private String shortName;
 
+    @NotBlank boolean facade;
+
     public Integer getId() {
         return id;
     }
@@ -46,5 +48,9 @@ public class PaletteType implements Serializable {
 
     public void setShortName(String shortName) {
         this.shortName = shortName;
+    }
+
+    public boolean isFacade() {
+        return facade;
     }
 }
