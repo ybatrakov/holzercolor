@@ -9,7 +9,7 @@
         </encoder>
         <file>logs/app.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${logging.path}/${spring.application.name}_%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>logs/app_%d{yyyy-MM-dd}.log</fileNamePattern>
             <maxHistory>14</maxHistory>
             <cleanHistoryOnStart>true</cleanHistoryOnStart>
         </rollingPolicy>

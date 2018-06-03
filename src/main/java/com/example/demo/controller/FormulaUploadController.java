@@ -27,6 +27,7 @@ public class FormulaUploadController {
     private final static Logger log = LoggerFactory.getLogger(FormulaUploadController.class);
 
     private final static Pattern HOLZER_PATTERN = Pattern.compile("^\\d{3}$");
+    private final static Pattern HOLZER_PATTERN2 = Pattern.compile("^ELEMENTS (\\d{3})$");
     private final static Pattern NOVA_PATTERN = Pattern.compile("^(NOVA |)[A-Z]\\d{3}$");
     private final static Pattern NCS_PATTERN1 = Pattern.compile("^NCS ([A-Z])([^ ]+)$");
     
@@ -78,6 +79,13 @@ public class FormulaUploadController {
         name = name.replaceAll("[ ]{2,}", " ");
         if(HOLZER_PATTERN.matcher(name).matches()) {
             return name;
+        }
+        {
+            // ELEMENTS 123 -> 123
+            Matcher m = HOLZER_PATTERN2.matcher(name);
+            if(m.matches()) {
+                return m.group(1);
+            }
         }
         if(NOVA_PATTERN.matcher(name).matches()) {
             if(name.startsWith("NOVA ")) {
