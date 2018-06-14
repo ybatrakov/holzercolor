@@ -31,20 +31,21 @@ function renderCurrentPaint() {
     var cur = $(this).find('option:selected');
 
     // Render current paint's packing name
-    var pack_name = cur.data('pack') == 1 ? 'л.' : 'кг.';
+    var pack_name = cur.data('pack') == 1 ? 'л' : 'кг';
     $('#pack_place').text(pack_name);
 
     // Rendering the formula for current paint and palette
-    var url = colorFormulasUrl() + '?paletteId=' + $('#palette_select').val() + '&paintId=' + cur.val();
-    $.ajax({
-        url: url,
-        success:
-        function(formula) {
-            cur.data('formula', formula);
-            renderFormula(formula);
-        }
-    });
-
+    if(cur.val()) {
+        var url = colorFormulasUrl() + '?paletteId=' + $('#palette_select').val() + '&paintId=' + cur.val();
+        $.ajax({
+            url: url,
+            success:
+            function(formula) {
+                cur.data('formula', formula);
+                renderFormula(formula);
+            }
+        });
+    }
 }
 
 function renderCurrentPalette() {
@@ -70,7 +71,7 @@ function renderCurrentPalette() {
         url: paintsForPaletteUrl(cur.val()),
         success:
             function(paints) {
-                paints.forEach( function(paint) {
+                $(paints).each( function(i, paint) {
                     var opt = $('<option>', { value: paint.id, text: paint.name });
                     opt.data('pack', paint.packing.id);
                     opt.appendTo('#paint_select');
@@ -93,7 +94,7 @@ function renderPalettes(event, paletteNick, paletteShortName) {
         url: '/api/palettes?type=' + paletteNick,
         success:
             function(palettes) {
-                palettes.forEach( function(palette) {
+                $(palettes).each( function(i, palette) {
                     // Adding palette to the box.
                     // If a color is provided for the palette, save it to option's data
                     var opt = $('<option>', { value: palette.id, text: palette.name });
@@ -161,17 +162,16 @@ $(document).ready(function() {
         url: '/api/palette_types',
         success:
             function(data) {
-                data.forEach(function(p) {
-                    if(checkPalette(p)) {
-                        $('<button>', {
-                            id: 'pt' + p.nick,
-                            class: 'tab-links',
-                            text: p.shortName,
-                            onClick: "renderPalettes(event, '" + p.nick +"', '" + p.shortName + "')"
-                        }).appendTo('#palettes');
-                    }
+                palettes = palettesPreprocess(data);
+                $(palettes).each(function(i, p) {
+                    $('<button>', {
+                        id: 'pt' + p.nick,
+                        class: 'tab-links',
+                        text: p.shortName,
+                        onClick: "renderPalettes(event, '" + p.nick +"', '" + p.shortName + "')"
+                    }).appendTo('#palettes');
                 });
-                renderPalettes(event, data[0].nick, data[0].shortName)
+                renderPalettes(event, data[0].nick, data[0].shortName);
             }
     });
 });

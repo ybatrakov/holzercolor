@@ -1,5 +1,7 @@
-function checkPalette(palette) {
-    return palette.facade == false;
+function palettesPreprocess(palettes) {
+    return $(palettes).filter(function(i, palette) {
+        return palette.facade == false;
+    });
 }
 
 function paintPriceUrl() {
