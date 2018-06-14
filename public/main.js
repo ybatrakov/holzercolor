@@ -144,6 +144,13 @@ $(document).ready(function() {
     });
 
     $.ajax({
+        url: '/api/user_info',
+        success: function(user_info) {
+            
+        }
+    });
+
+    $.ajax({
         url: paintPriceUrl(),
         success: function(paint_price) {
             $('body').data('price', paint_price);

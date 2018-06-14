@@ -34,14 +34,14 @@ public class Paint implements Serializable {
                joinColumns = { @JoinColumn(name = "paint_id") },
                inverseJoinColumns = { @JoinColumn(name = "palette_id") }
                )
-    Set<Palette> palettes = new HashSet<>();
+    private Set<Palette> palettes = new HashSet<>();
 
     @ManyToMany(cascade = { CascadeType.ALL })
     @JoinTable(name = "color_formulas_facade",
                joinColumns = { @JoinColumn(name = "paint_id") },
                inverseJoinColumns = { @JoinColumn(name = "palette_id") }
                )
-    Set<Palette> palettesFacade = new HashSet<>();
+    private Set<Palette> palettesFacade = new HashSet<>();
     
     public Integer getId() {
         return id;
