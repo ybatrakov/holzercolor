@@ -49,9 +49,6 @@ function renderCurrentPaint() {
 }
 
 function renderCurrentPalette() {
-    $('#paint_select').empty();
-    $("#paint_select").trigger("chosen:updated");
-
     var cur = $(this).find('option:selected');
 
     // Render palette's color field
@@ -66,15 +63,26 @@ function renderCurrentPalette() {
         $('#color_place').remove();
     }
 
+    // Save previously selected paint and reselect id after palette is changed
+    var prevPaint = $("#paint_select option:checked").val();
+
+    $('#paint_select').empty();
+    $("#paint_select").trigger("chosen:updated");
+
     // Building select box with paints for current palette
     $.ajax({
-        url: paintsForPaletteUrl(cur.val()),
+        url:
+            paintsForPaletteUrl(cur.val()),
         success:
             function(paints) {
                 $(paints).each( function(i, paint) {
                     var opt = $('<option>', { value: paint.id, text: paint.name });
                     opt.data('pack', paint.packing.id);
                     opt.appendTo('#paint_select');
+
+                    if(paint.id == prevPaint) {
+                        $("#paint_select").val(paint.id);
+                    }
                 });
                 $("#paint_select").trigger("chosen:updated");
                 $("#paint_select").change();
