@@ -23,7 +23,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/index.html").hasRole("REGULAR")
             .antMatchers("/facade.html").hasRole("FACADE")
             .anyRequest().authenticated()
-            .and().formLogin();
+            .and().formLogin().and().rememberMe().tokenValiditySeconds(90 * 24 * 60 * 60);
     }
 
     @Override

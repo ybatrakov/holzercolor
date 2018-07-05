@@ -132,6 +132,10 @@ table {
    width: 50px;
 }
 
+#nav {
+    text-align:right;
+}
+
 body {
     background-color: #fff;
     color: #333;

@@ -155,7 +155,7 @@ $(document).ready(function() {
     $.ajax({
         url: '/api/user_info',
         success: function(user_info) {
-            
+            $('#login_place').text(user_info.email);
         }
     });
 
