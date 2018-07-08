@@ -8,7 +8,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @Entity
 @Table(name = "color_formulas_facade")
-@JsonSerialize(using = ColorFormulaFacadeSerializer.class)
+@JsonSerialize(using = ColorFormulaSerializer.class)
 public class ColorFormulaFacade implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

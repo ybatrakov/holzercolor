@@ -19,11 +19,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-            .antMatchers("/index.html").hasRole("REGULAR")
-            .antMatchers("/facade.html").hasRole("FACADE")
-            .anyRequest().authenticated()
-            .and().formLogin().and().rememberMe().tokenValiditySeconds(90 * 24 * 60 * 60);
+        http
+            .authorizeRequests()
+                .antMatchers("/index.html").hasRole("REGULAR")
+                .antMatchers("/facade.html").hasRole("FACADE")
+                .anyRequest().authenticated()
+                .and()
+            .formLogin()
+                .and()
+            .rememberMe()
+                .tokenValiditySeconds(90 * 24 * 60 * 60);
     }
 
     @Override

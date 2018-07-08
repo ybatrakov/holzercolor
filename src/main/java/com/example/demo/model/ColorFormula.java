@@ -22,22 +22,22 @@ public class ColorFormula implements Serializable {
     @ManyToOne
     private Base base;
 
-    private Double ft;
-    private Double hs;
-    private Double ks;
-    private Double ls;
-    private Double lt;
-    private Double ms;
-    private Double mt;
-    private Double pt;
-    private Double rs;
-    private Double rt;
-    private Double st;
-    private Double tt;
-    private Double us;
-    private Double vt;
-    private Double xt;
-    private Double zt;
+    private double ft;
+    private double hs;
+    private double ks;
+    private double ls;
+    private double lt;
+    private double ms;
+    private double mt;
+    private double pt;
+    private double rs;
+    private double rt;
+    private double st;
+    private double tt;
+    private double us;
+    private double vt;
+    private double xt;
+    private double zt;
 
     public Base getBase() {
         return base;
@@ -47,67 +47,67 @@ public class ColorFormula implements Serializable {
         return id;
     }
 
-    public Double getFt() {
+    public double getFt() {
         return ft;
     }
 
-    public Double getHs() {
+    public double getHs() {
         return hs;
     }
 
-    public Double getKs() {
+    public double getKs() {
         return ks;
     }
 
-    public Double getLs() {
+    public double getLs() {
         return ls;
     }
 
-    public Double getLt() {
+    public double getLt() {
         return lt;
     }
 
-    public Double getMs() {
+    public double getMs() {
         return ms;
     }
 
-    public Double getMt() {
+    public double getMt() {
         return mt;
     }
 
-    public Double getPt() {
+    public double getPt() {
         return pt;
     }
 
-    public Double getRs() {
+    public double getRs() {
         return rs;
     }
 
-    public Double getRt() {
+    public double getRt() {
         return rt;
     }
 
-    public Double getSt() {
+    public double getSt() {
         return st;
     }
 
-    public Double getTt() {
+    public double getTt() {
         return tt;
     }
 
-    public Double getUs() {
+    public double getUs() {
         return us;
     }
 
-    public Double getVt() {
+    public double getVt() {
         return vt;
     }
 
-    public Double getXt() {
+    public double getXt() {
         return xt;
     }
 
-    public Double getZt() {
+    public double getZt() {
         return zt;
     }
 }
