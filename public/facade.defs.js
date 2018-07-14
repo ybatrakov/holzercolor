@@ -23,3 +23,7 @@ function colorFormulasUrl() {
 function paintsForPaletteUrl(palette) {
     return '/api/paints?facade=true&paletteId=' + palette;
 }
+
+function currentPage() {
+    return 'FACADE';
+}

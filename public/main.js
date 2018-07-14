@@ -138,6 +138,41 @@ function feeChanged() {
     refreshFormula();
 }
 
+function renderNavigation(user_info) {
+    $('#login_place').text(user_info.email);
+
+    var links = [];
+    // We could just loop through user's permissions array but we care about the order of links
+    $.map(['REGULAR', 'FACADE', 'ADMIN'], function(page) {
+        if(page != currentPage()) {
+            // Are we permitted?
+            var matched = $.grep(user_info.roles, function(role) {
+                return role['name'] == page;
+            });
+            if(matched.length > 0) {
+                links.push(page);
+            }
+        }
+    });
+
+    if(links.length > 0) {
+        $('<div>', {id: 'nav_links'}).appendTo('#nav');
+
+        var page_link = {'REGULAR' : ['Основные краски',   'index.html'   ],
+                         'FACADE'  : ['Фасадные краски',   'facade.html'  ],
+                         'ADMIN'   : ['Настройки системы', 'settings.html']
+                        };
+
+        $.map(links, function(link) {
+            $('<a>', { text: page_link[link][0],
+                       href: page_link[link][1]
+                     }
+             ).appendTo('#nav_links');
+            $('#nav_links').append(' ');
+        });
+    }
+}
+
 $(document).ready(function() {
     $('#palette_select').chosen();
     $('#palette_select').change(renderCurrentPalette);
@@ -155,6 +190,7 @@ $(document).ready(function() {
     $.ajax({
         url: '/api/user_info',
         success: function(user_info) {
+            renderNavigation(user_info);
             $('#login_place').text(user_info.email);
         }
     });

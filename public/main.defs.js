@@ -15,3 +15,7 @@ function colorFormulasUrl() {
 function paintsForPaletteUrl(palette) {
     return '/api/paints?paletteId=' + palette;
 }
+
+function currentPage() {
+    return 'REGULAR';
+}
