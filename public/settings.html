@@ -4,9 +4,21 @@
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
   <title>Настройки</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="settings.js?v=0.1"></script>
   <link href="main.css?v=0.3" type="text/css" rel="stylesheet">
 </head>
 <body>
-    <div id="title">Настройки системы</div>
-    <div id="settings">Under construction</div>
+  <div id="title">Настройки системы</div>
+  <div>
+    <div id="settings">Загрузка формул</div>
+    <div id="formula_upload">
+      <form enctype="multipart/form-data" id="upload_form">
+        <table id="controls">
+          <tr><td><span>Краска: </span><select id="paints"></select><span> Объем: </span><input id="volume" type="number" value="0"/></td></tr>
+          <tr><td>Файл формул: <input type="file" name="file"/><input type="submit" id="upload_button" value="Загрузить"/></td></tr>
+          <tr><td><div id="upload_status"></div></td></tr>
+        </table>
+      </form>
+    </div>
+  </div>
 </body>

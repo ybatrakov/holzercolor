@@ -27,8 +27,8 @@ public class FormulaUploadController {
     private final static Logger log = LoggerFactory.getLogger(FormulaUploadController.class);
 
     private final static Pattern HOLZER_PATTERN = Pattern.compile("^\\d{3}$");
-    private final static Pattern HOLZER_PATTERN2 = Pattern.compile("^ELEMENTS (\\d{3})$");
-    private final static Pattern NOVA_PATTERN = Pattern.compile("^(NOVA |)[A-Z]\\d{3}$");
+    private final static Pattern HOLZER_PATTERN2 = Pattern.compile("^(?)ELEMENTS (\\d{3})$", Pattern.CASE_INSENSITIVE);
+    private final static Pattern NOVA_PATTERN = Pattern.compile("^(NOVA |)[A-Z]\\d{3}$", Pattern.CASE_INSENSITIVE);
     private final static Pattern NCS_PATTERN1 = Pattern.compile("^NCS ([A-Z])([^ ]+)$");
     
     @Autowired
@@ -60,8 +60,7 @@ public class FormulaUploadController {
         
         int counter = 0;
 
-        try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(file.getInputStream()));
+        try(BufferedReader reader = new BufferedReader(new InputStreamReader(file.getInputStream()));) {
             while(reader.ready()) {
                 String line = reader.readLine();
                 processFormula(paint.get(), volume, line);
@@ -88,8 +87,8 @@ public class FormulaUploadController {
             }
         }
         if(NOVA_PATTERN.matcher(name).matches()) {
-            if(name.startsWith("NOVA ")) {
-                return name;
+            if(name.toUpperCase().startsWith("NOVA ")) {
+                return name.toUpperCase();
             }
             return "NOVA " + name;
         }
