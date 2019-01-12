@@ -7,9 +7,9 @@
         <encoder>
             <pattern>${FILE_LOG_PATTERN}</pattern>
         </encoder>
-        <file>logs/app.log</file>
+        <file>${log.dir:-.}/logs/app.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>logs/app_%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>${log.dir:-.}/logs/app_%d{yyyy-MM-dd}.log</fileNamePattern>
             <maxHistory>14</maxHistory>
             <cleanHistoryOnStart>true</cleanHistoryOnStart>
         </rollingPolicy>
