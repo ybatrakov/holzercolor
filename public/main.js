@@ -24,6 +24,11 @@ function renderFormula(formula) {
     if(fee) {
         final_price *= 1 + fee / 100;
     }
+    var user_fee = $('body').data('user_fee');
+    if(user_fee) {
+        final_price *= 1 + user_fee / 100;
+    }
+
     $('#coloring_price').text(formatFloat(final_price, 2));
 }
 
@@ -192,6 +197,7 @@ $(document).ready(function() {
         success: function(user_info) {
             renderNavigation(user_info);
             $('#login_place').text(user_info.email);
+            $('body').data('user_fee', user_info.profile.fee);
         }
     });
 

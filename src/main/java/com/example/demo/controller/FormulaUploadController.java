@@ -60,7 +60,7 @@ public class FormulaUploadController {
         
         int counter = 0;
 
-        try(BufferedReader reader = new BufferedReader(new InputStreamReader(file.getInputStream()));) {
+        try(BufferedReader reader = new BufferedReader(new InputStreamReader(file.getInputStream()))) {
             while(reader.ready()) {
                 String line = reader.readLine();
                 processFormula(paint.get(), volume, line);
@@ -138,7 +138,7 @@ public class FormulaUploadController {
             String[] col_toks = tokens[i].split("\\.");
             String col = ( col_toks.length == 2 ? col_toks[1] : tokens[i] );
 
-            double price = Double.valueOf(tokens[i+1].replace(",", ".")); // DecimalFormat might be better
+            double price = Double.parseDouble(tokens[i+1].replace(",", ".")); // DecimalFormat might be better
 
             params.put(col, price / volume);
         }
