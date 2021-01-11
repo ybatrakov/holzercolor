@@ -2,7 +2,7 @@ package com.yura.holzercolor.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "profiles")
@@ -17,7 +17,7 @@ public class UserProfile implements Serializable {
     @ManyToOne
     private PaintPriceFacade paintPriceFacade;
 
-    @NotBlank
+    @NotNull
     private Integer fee;
 
     public Integer getId() {
@@ -34,5 +34,9 @@ public class UserProfile implements Serializable {
 
     public Integer getFee() {
         return fee;
+    }
+
+    public void setFee(Integer fee) {
+        this.fee = fee;
     }
 }

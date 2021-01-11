@@ -20,7 +20,7 @@ public class PaintController {
             return paintRepository.findAll();
         }
         
-	return ( facade == null || facade.booleanValue() == false ) ?
+	return ( facade == null || !facade) ?
             paintRepository.getByPaletteId(paletteId) : paintRepository.getFacadeByPaletteId(paletteId);
     }
 

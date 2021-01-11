@@ -22,6 +22,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/index.html").hasRole("REGULAR")
                 .antMatchers("/facade.html").hasRole("FACADE")
                 .antMatchers("/settings.html").hasRole("ADMIN")
+                .antMatchers("/api/users").hasRole("ADMIN")
+                .antMatchers("/api/formula_upload").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
             .formLogin()

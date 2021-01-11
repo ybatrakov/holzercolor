@@ -33,7 +33,7 @@ public class PaintPriceFacade implements Serializable {
         return id;
     }
 
-    public String name() {
+    public String getName() {
         return name;
     }
 

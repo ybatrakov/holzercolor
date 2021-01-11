@@ -37,4 +37,14 @@ public class PaintPriceController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return userRepository.findByEmail(auth.getName()).getProfile();
     }
+
+    @GetMapping("/paint_prices")
+    public Iterable<PaintPrice> getPaintPrices() {
+        return paintPriceRepository.findAll();
+    }
+
+    @GetMapping("/paint_prices_facade")
+    public Iterable<PaintPriceFacade> getPaintPricesFacade() {
+        return paintPriceFacadeRepository.findAll();
+    }
 }

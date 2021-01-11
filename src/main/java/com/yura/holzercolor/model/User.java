@@ -1,5 +1,8 @@
 package com.yura.holzercolor.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.*;
@@ -15,7 +18,7 @@ public class User implements Serializable {
     @NotBlank
     private String email;
 
-    @ManyToMany(cascade = { CascadeType.ALL })
+    @ManyToMany(cascade = { CascadeType.MERGE })
     @JoinTable(name = "users_roles",
                joinColumns = { @JoinColumn(name = "user_id") },
                inverseJoinColumns = { @JoinColumn(name = "role_id") }
@@ -24,6 +27,10 @@ public class User implements Serializable {
 
     @OneToOne
     private UserProfile profile;
+
+    @NotBlank
+    @Column(name="encrypted_password")
+    private String password;
 
     public Integer getId() {
         return id;
@@ -39,5 +46,15 @@ public class User implements Serializable {
 
     public Set<UserRole> getRoles() {
         return roles;
+    }
+
+    @JsonIgnore
+    public String getPassword() {
+        return password;
+    }
+
+    @JsonProperty
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

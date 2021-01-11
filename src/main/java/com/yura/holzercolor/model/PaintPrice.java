@@ -97,7 +97,7 @@ public class PaintPrice implements Serializable {
         return zt;
     }
 
-    public String name() {
+    public String getName() {
         return name;
     }
 }
