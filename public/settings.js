@@ -139,7 +139,7 @@ function addEditUserWindow(user) {
         }
         if($('#edit_user_role_f').is(':checked')) {
             new_user['roles'].push({id: 3, name: "FACADE"}); // TODO: from AJAX
-            new_user['profile']['paintPriceFacade'] = {id: $('#edit_user_paint_prices_select').val()};
+            new_user['profile']['paintPriceFacade'] = {id: $('#edit_user_paint_prices_facade_select').val()};
         }
         if($('#edit_user_role_a').is(':checked')) {
             new_user['roles'].push({id: 1, name: "ADMIN"}); // TODO: from AJAX
