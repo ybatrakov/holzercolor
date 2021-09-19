@@ -11,7 +11,8 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 @JsonSerialize(using = ColorFormulaSerializer.class)
 public class ColorFormula implements Formula, Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name="color_formulas_seq", sequenceName = "color_formulas_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "color_formulas_seq")
     private Integer id;
 
     @ManyToOne
@@ -64,6 +65,11 @@ public class ColorFormula implements Formula, Serializable {
         ret.put("zt", zt);
 
         return ret;
+    }
+
+    @Override
+    public final Type getType() {
+        return Type.REGULAR;
     }
 
     @Override
