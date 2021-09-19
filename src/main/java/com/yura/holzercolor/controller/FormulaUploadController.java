@@ -28,6 +28,8 @@ public class FormulaUploadController {
     private final static Pattern NOVA_PATTERN = Pattern.compile("^(NOVA |)[A-Z]\\d{3}$", Pattern.CASE_INSENSITIVE);
     private final static Pattern NCS_PATTERN1 = Pattern.compile("^NCS ([A-Z])([^ ]+)$");
 
+    private final static List<String> IGNORED_PALETTES = Arrays.asList("Caparol", "Dulux", "Tikkurila");
+
     @Autowired
     PaletteRepository paletteRepository;
 
@@ -141,6 +143,12 @@ public class FormulaUploadController {
 
     private void processFormula(Paint paint, double volume, String line, FileContext ctx) {
         String[] tokens = line.split("\\t");
+
+        for(String ignored : IGNORED_PALETTES) {
+            if(tokens[0].startsWith(ignored)) {
+                return;
+            }
+        }
 
         String paletteName = normalizePaletteName(tokens[0]);
         if(paletteName == null) {
