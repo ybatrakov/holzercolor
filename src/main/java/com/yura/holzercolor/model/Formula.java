@@ -12,6 +12,7 @@ public interface Formula {
     Palette getPalette();
     Base getBase();
     Map<String, Double> getValues();
+    Type getType();
 
     void setPaint(Paint paint);
     void setPalette(Palette palette);
