@@ -21,7 +21,7 @@ public class FormulaFileReader {
     private final static Pattern NCS_PATTERN1 = Pattern.compile("^NCS ([A-Z])([^ ]+)$");
     private final static List<String> IGNORED_PALETTES = Arrays.asList("Caparol", "Dulux", "Tikkurila");
 
-    private final Reader reader;
+    private final BufferedReader reader;
     private final List<Formula> formulaBuffer = new ArrayList<>();
     private final int batchSize;
     private final FormulaFileListener listener;
@@ -29,30 +29,29 @@ public class FormulaFileReader {
 
     private int lineNo = 1;
 
-    public FormulaFileReader(Reader reader, int batchSize, FormulaFileListener listener) {
-        Objects.requireNonNull(reader, "Invalid reader supplied");
-        Objects.requireNonNull(reader, "Invalid listener supplied");
-
+    public FormulaFileReader(BufferedReader reader, int batchSize, FormulaFileListener listener) {
         if(batchSize < 1) {
             batchSize = 1;
         }
 
-        this.reader = reader;
+        this.reader = Objects.requireNonNull(reader, "Invalid reader supplied");
         this.batchSize = batchSize;
-        this.listener = listener;
+        this.listener = Objects.requireNonNull(listener, "Invalid listener supplied");
     }
 
     public void read() throws IOException {
-        try(BufferedReader r = new BufferedReader(reader)) {
-            while(r.ready()) {
-                String line = r.readLine();
-                processFormula(line, lineNo++);
-            }
-            sendBuffer(true);
+        while(reader.ready()) {
+            String line = reader.readLine().trim();
+            processFormula(line, lineNo++);
         }
+        sendBuffer(true);
     }
 
     private void processFormula(String line, int lineNum) {
+        if(line.isEmpty()) {
+            return;
+        }
+
         String[] tokens = line.split("\\t");
 
         for(String ignored : IGNORED_PALETTES) {
@@ -63,7 +62,7 @@ public class FormulaFileReader {
 
         String paletteName = normalizePaletteName(tokens[0]);
         if(paletteName == null) {
-            log.warn("Line #{}, Unsupported palette {}", lineNum, tokens[0]);
+            log.warn("Line #{}, Unsupported palette '{}'", lineNum, tokens[0]);
             return;
         }
 
@@ -116,13 +115,13 @@ public class FormulaFileReader {
         if(size <= batchSize) {
             sendBufferImpl(formulaBuffer);
         } else {
-        // size > batchSize: rare (or impossible) case when too much unidentified formulas has been buffered
-        for (int i = 0; i <= size; i += batchSize) {
-            int toIdx = Math.min(i + batchSize, size);
-            List<Formula> sub = formulaBuffer.subList(i, toIdx);
-            sendBufferImpl(sub);
+            // size > batchSize: rare (or impossible) case when too much unidentified formulas has been buffered
+            for (int i = 0; i <= size; i += batchSize) {
+                int toIdx = Math.min(i + batchSize, size);
+                List<Formula> sub = formulaBuffer.subList(i, toIdx);
+                sendBufferImpl(sub);
+            }
         }
-    }
         formulaBuffer.clear();
     }
 

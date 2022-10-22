@@ -1,5 +1,6 @@
 package com.yura.holzercolor.controller;
 
+import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
 import java.util.*;
@@ -56,9 +57,8 @@ public class FormulaUploadController {
             return new ResponseEntity<>("No paint for id " + paintId, HttpStatus.BAD_REQUEST);
         }
 
-        try {
-            FormulaFileReader reader = new FormulaFileReader(new InputStreamReader(file.getInputStream()),
-                    INSERT_BATCH_SIZE, new FileListener(paint.get(), volume));
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(file.getInputStream()))) {
+            FormulaFileReader reader = new FormulaFileReader(br, INSERT_BATCH_SIZE, new FileListener(paint.get(), volume));
             reader.read();
 
             return new ResponseEntity<>("Uploaded " + reader.getLine() + " formulas", HttpStatus.OK);
@@ -80,7 +80,8 @@ public class FormulaUploadController {
 
         @Override
         public void onFormulaInfoResolved(com.yura.holzercolor.utils.formulas.Formula.Type formulaType) {
-            if(type == Formula.Type.REGULAR) {
+            log.info("Detected formula type {}", formulaType);
+            if(formulaType == com.yura.holzercolor.utils.formulas.Formula.Type.REGULAR) {
                 colorFormulaRepository.deleteByPaintId(paint.getId());
                 type = Formula.Type.REGULAR;
             } else {
