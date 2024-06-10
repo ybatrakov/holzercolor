@@ -17,5 +17,5 @@ public interface Formula {
     void setPaint(Paint paint);
     void setPalette(Palette palette);
     void setBase(Base base);
-    void setValue(String field, Double value);
+    void setValues(Map<String, Double> values);
 }

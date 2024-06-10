@@ -26,9 +26,12 @@ function renderPaintsSettings() {
     });
 
     $('#upload_button').on('click', function() {
+        var paint = $('#paints').val();
         var volume = $('#volume').val();
+        var type = $('#formula_type').val();
+
         $.ajax({
-            url: '/api/formula_upload?paintId=' + $('#paints').val() + '&volume=' + volume,
+            url: '/api/formula_upload' + ( type == 'FACADE' ? '_facade' : '') + '?paintId=' + paint + '&volume=' + volume,
             type: 'POST',
             data: new FormData($('#upload_form')[0]),
             cache: false,

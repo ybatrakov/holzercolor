@@ -13,6 +13,6 @@ public class PaletteController {
 
     @GetMapping("/palettes")
     public Iterable<Palette> getPalettes(String type) {
-        return type != null ? paletteRepository.getByTypeNick(type) : paletteRepository.findAll();
+        return type != null ? paletteRepository.getByPaletteTypeNick(type) : paletteRepository.findAll();
     }
 }

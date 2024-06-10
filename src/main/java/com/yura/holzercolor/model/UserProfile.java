@@ -1,11 +1,15 @@
 package com.yura.holzercolor.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "profiles")
+@Getter
 public class UserProfile implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,25 +22,6 @@ public class UserProfile implements Serializable {
     private PaintPriceFacade paintPriceFacade;
 
     @NotNull
+    @Setter
     private Integer fee;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public PaintPrice getPaintPrice() {
-	return paintPrice;
-    }
-
-    public PaintPriceFacade getPaintPriceFacade() {
-        return paintPriceFacade;
-    }
-
-    public Integer getFee() {
-        return fee;
-    }
-
-    public void setFee(Integer fee) {
-        this.fee = fee;
-    }
 }
