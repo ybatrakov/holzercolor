@@ -96,11 +96,6 @@ public class ColorFormula implements Formula, Serializable {
     }
 
     @Override
-    public final Type getType() {
-        return Type.REGULAR;
-    }
-
-    @Override
     public Integer getId() {
         return id;
     }

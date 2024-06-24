@@ -8,11 +8,14 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api")
 public class PaletteTypeController {
-    @Autowired
-    PaletteTypeRepository paletteTypeRepository;
+    private final PaletteTypeRepository paletteTypeRepository;
+
+    public PaletteTypeController(PaletteTypeRepository paletteTypeRepository) {
+        this.paletteTypeRepository = paletteTypeRepository;
+    }
 
     @GetMapping("/palette_types")
-    public Iterable<PaletteType> getPaletteTypes() {
-        return paletteTypeRepository.findAll();
+    public Iterable<PaletteType> getPaletteTypes(String formulaType) {
+        return paletteTypeRepository.findByFormulaTypeName(formulaType);
     }
 }

@@ -96,11 +96,6 @@ public class ColorFormulaFacade implements Formula, Serializable {
     }
 
     @Override
-    public final Type getType() {
-        return Type.FACADE;
-    }
-
-    @Override
     public Integer getId() {
         return id;
     }

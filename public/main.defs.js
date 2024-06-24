@@ -1,9 +1,3 @@
-function palettesPreprocess(palettes) {
-    return $(palettes).filter(function(i, palette) {
-        return palette.facade == false;
-    });
-}
-
 function paintPriceUrl() {
     return '/api/paint_price';
 }

@@ -7,7 +7,7 @@ import java.util.Collection;
 import java.util.Optional;
 
 public interface PaletteRepository extends CrudRepository<Palette, Integer> {
-    Collection<Palette> getByPaletteTypeNick(String nick);
+    Collection<Palette> findByPaletteTypeId(int typeId);
 
     Optional<Palette> findByName(String name);
 }
