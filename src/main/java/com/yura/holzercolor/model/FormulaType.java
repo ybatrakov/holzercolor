@@ -1,16 +1,13 @@
 package com.yura.holzercolor.model;
 
-import lombok.Getter;
 import lombok.Setter;
 
-import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
-@Getter
 @Entity
-@Table(name = "packings")
-public class Packing implements Serializable {
+@Table(name = "formula_types")
+public class FormulaType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

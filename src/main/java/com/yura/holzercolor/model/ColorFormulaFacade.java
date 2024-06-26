@@ -24,25 +24,53 @@ public class ColorFormulaFacade implements Formula, Serializable {
     @ManyToOne
     private Base base;
 
+    @Column
     private double ba;
+
+    @Column
     private double be;
+
+    @Column
     private double je;
+
+    @Column
     private double jo;
+
+    @Column
     private double jp;
+
+    @Column
     private double lt;
+
+    @Column
     private double ma;
+
+    @Column
     private double na;
+
+    @Column
     private double op;
+
+    @Column
     private double ov;
-    private double ra;
+
+    @Column
     private double rp;
+
+    @Column
     private double rv;
+
+    @Column
     private double tt;
+
+    @Column
     private double vi;
+
+    @Column
     private double vr;
 
-    public static final Set<String> FIELDS = Collections.unmodifiableSet(new HashSet<>(
-            Arrays.asList("ba", "be", "je", "jo", "jp", "lt", "ma", "na", "op", "ov", "ra", "rp", "rv", "tt", "vi", "vr")));
+    @Column
+    private double vt;
 
     @Override
     public Map<String, Double> getValues() {
@@ -57,19 +85,14 @@ public class ColorFormulaFacade implements Formula, Serializable {
         ret.put("na", na);
         ret.put("op", op);
         ret.put("ov", ov);
-        ret.put("ra", ra);
         ret.put("rp", rp);
         ret.put("rv", rv);
         ret.put("tt", tt);
         ret.put("vi", vi);
         ret.put("vr", vr);
+        ret.put("vt", vt);
 
         return ret;
-    }
-
-    @Override
-    public final Type getType() {
-        return Type.FACADE;
     }
 
     @Override
@@ -108,59 +131,60 @@ public class ColorFormulaFacade implements Formula, Serializable {
     }
 
     @Override
-    public void setValue(String field, Double value) {
-        // Reflection?
-        switch(field.toLowerCase()) {
-            case "ba" :
-                ba = value;
-                break;
-            case "be" :
-                be = value;
-                break;
-            case "je" :
-                je = value;
-                break;
-            case "jo" :
-                jo = value;
-                break;
-            case "ma" :
-                ma = value;
-                break;
-            case "na" :
-                na = value;
-                break;
-            case "ov" :
-                ov = value;
-                break;
-            case "ra" :
-                ra = value;
-                break;
-            case "rv" :
-                rv = value;
-                break;
-            case "vi" :
-                vi = value;
-                break;
-            case "vr" :
-                vr = value;
-                break;
-            case "op" :
-                op = value;
-                break;
-            case "jp" :
-                jp = value;
-                break;
-            case "rp" :
-                rp = value;
-                break;
-            case "tt" :
-                tt = value;
-                break;
-            case "lt" :
-                lt = value;
-                break;
-            default:
-                throw new IllegalArgumentException("Unknown colorant " + field);
-        }
+    public void setValues(Map<String, Double> values) {
+        values.forEach((colorant, value) -> {
+            // Reflection?
+            switch(colorant.toLowerCase()) {
+                case "ba":
+                    ba = value;
+                    break;
+                case "be":
+                    be = value;
+                    break;
+                case "je":
+                    je = value;
+                    break;
+                case "jo":
+                    jo = value;
+                    break;
+                case "ma":
+                    ma = value;
+                    break;
+                case "na":
+                    na = value;
+                    break;
+                case "ov":
+                    ov = value;
+                    break;
+                case "rv":
+                    rv = value;
+                    break;
+                case "vi":
+                    vi = value;
+                    break;
+                case "vr":
+                    vr = value;
+                    break;
+                case "op":
+                    op = value;
+                    break;
+                case "jp":
+                    jp = value;
+                    break;
+                case "rp":
+                    rp = value;
+                    break;
+                case "tt":
+                    tt = value;
+                    break;
+                case "lt":
+                    lt = value;
+                    break;
+                case "vt":
+                    vt = value;
+                    break;
+                default:
+                    throw new IllegalArgumentException("Unknown colorant " + colorant);
+            }});
     }
 }

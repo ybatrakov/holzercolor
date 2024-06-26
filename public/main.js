@@ -95,22 +95,25 @@ function renderCurrentPalette() {
     });
 }
 
-function renderPalettes(event, paletteNick, paletteShortName) {
-    $('#palette-type').text(paletteShortName);
+function renderPalettes(event, paletteTypeId, paletteTypeNick, paletteTypeShortName) {
+    $('#palette-type').text(paletteTypeShortName);
     $('.tab-links').removeClass('active');
-    $('#pt' + paletteNick).addClass('active');
+    $('#pt' + paletteTypeNick).addClass('active');
 
     $('#palette_select').empty();
     $("#palette_select").trigger("chosen:updated");
 
     $.ajax({
-        url: '/api/palettes?type=' + paletteNick,
+        url: '/api/palettes?typeId=' + paletteTypeId,
         success:
             function(palettes) {
                 $(palettes).each( function(i, palette) {
                     // Adding palette to the box.
                     // If a color is provided for the palette, save it to option's data
-                    var opt = $('<option>', { value: palette.id, text: palette.name });
+                    var opt = $('<option>', {
+                        value: palette.id,
+                        text: palette.displayAs != null ? palette.displayAs : palette.name
+                        });
                     if(palette.rgb != null) {
                         opt.data('rgb', palette.rgb);
                     }
@@ -209,19 +212,18 @@ $(document).ready(function() {
     });
 
     $.ajax({
-        url: '/api/palette_types',
+        url: '/api/palette_types?formulaType=' + currentPage(),
         success:
             function(data) {
-                palettes = palettesPreprocess(data);
-                $(palettes).each(function(i, p) {
+                $(data).each(function(i, p) {
                     $('<button>', {
                         id: 'pt' + p.nick,
                         class: 'tab-links',
                         text: p.shortName,
-                        onClick: "renderPalettes(event, '" + p.nick +"', '" + p.shortName + "')"
+                        onClick: "renderPalettes(event, " + p.id + ", '" + p.nick +"', '" + p.shortName + "')"
                     }).appendTo('#palettes');
                 });
-                renderPalettes(event, data[0].nick, data[0].shortName);
+                renderPalettes(event, data[0].id, data[0].nick, data[0].shortName);
             }
     });
 });

@@ -1,10 +1,13 @@
 package com.yura.holzercolor.model;
 
+import lombok.Getter;
+
 import java.io.Serializable;
 import javax.persistence.*;
 
 @Entity
 @Table(name = "paint_prices_facade")
+@Getter
 public class PaintPriceFacade implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,82 +25,10 @@ public class PaintPriceFacade implements Serializable {
     private Double na;
     private Double op;
     private Double ov;
-    private Double ra;
+    private Double vt;
     private Double rp;
     private Double rv;
     private Double tt;
     private Double vi;
     private Double vr;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public Double getBa() {
-        return ba;
-    }
-
-    public Double getBe() {
-        return be;
-    }
-
-    public Double getJe() {
-        return je;
-    }
-
-    public Double getJo() {
-        return jo;
-    }
-
-    public Double getJp() {
-        return jp;
-    }
-
-    public Double getLt() {
-        return lt;
-    }
-
-    public Double getMa() {
-        return ma;
-    }
-
-    public Double getNa() {
-        return na;
-    }
-
-    public Double getOp() {
-        return op;
-    }
-
-    public Double getOv() {
-        return ov;
-    }
-
-    public Double getRa() {
-        return ra;
-    }
-
-    public Double getRp() {
-        return rp;
-    }
-
-    public Double getRv() {
-        return rv;
-    }
-
-    public Double getTt() {
-        return tt;
-    }
-
-    public Double getVi() {
-        return vi;
-    }
-
-    public Double getVr() {
-        return vr;
-    }
 }

@@ -24,24 +24,52 @@ public class ColorFormula implements Formula, Serializable {
     @ManyToOne
     private Base base;
 
-    public static final Set<String> FIELDS = Collections.unmodifiableSet(new HashSet<>(
-            Arrays.asList("ft", "hs", "ks", "ls", "lt", "ms", "mt", "pt", "rs", "rt", "st", "tt", "us", "vt", "xt", "zt")));
-
+    @Column
     private double ft;
+
+    @Column
     private double hs;
+
+    @Column
     private double ks;
+
+    @Column
     private double ls;
+
+    @Column
     private double lt;
+
+    @Column
     private double ms;
+
+    @Column
     private double mt;
+
+    @Column
     private double pt;
+
+    @Column
     private double rs;
+
+    @Column
     private double rt;
+
+    @Column
     private double st;
+
+    @Column
     private double tt;
+
+    @Column
     private double us;
+
+    @Column
     private double vt;
+
+    @Column
     private double xt;
+
+    @Column
     private double zt;
 
     @Override
@@ -65,11 +93,6 @@ public class ColorFormula implements Formula, Serializable {
         ret.put("zt", zt);
 
         return ret;
-    }
-
-    @Override
-    public final Type getType() {
-        return Type.REGULAR;
     }
 
     @Override
@@ -108,57 +131,60 @@ public class ColorFormula implements Formula, Serializable {
     }
 
     @Override
-    public void setValue(String field, Double value) {
-        switch(field.toLowerCase()) {
-            case("ft"):
-                ft = value;
-                break;
-            case("hs"):
-                hs = value;
-                break;
-            case("ks"):
-                ks = value;
-                break;
-            case("ls"):
-                ls = value;
-                break;
-            case("lt"):
-                lt = value;
-                break;
-            case("ms"):
-                ms = value;
-                break;
-            case("mt"):
-                mt = value;
-                break;
-            case("pt"):
-                pt = value;
-                break;
-            case("rs"):
-                rs = value;
-                break;
-            case("rt"):
-                rt = value;
-                break;
-            case("st"):
-                st = value;
-                break;
-            case("tt"):
-                tt = value;
-                break;
-            case("us"):
-                us = value;
-                break;
-            case("vt"):
-                vt = value;
-                break;
-            case("xt"):
-                xt = value;
-                break;
-            case("zt"):
-                zt = value;
-                break;
-            default: throw new IllegalArgumentException("Unknown colorant " + field);
-        }
+    public void setValues(Map<String, Double> values) {
+        values.forEach((colorant, value) -> {
+            switch (colorant.toLowerCase()) {
+                case ("ft"):
+                    ft = value;
+                    break;
+                case ("hs"):
+                    hs = value;
+                    break;
+                case ("ks"):
+                    ks = value;
+                    break;
+                case ("ls"):
+                    ls = value;
+                    break;
+                case ("lt"):
+                    lt = value;
+                    break;
+                case ("ms"):
+                    ms = value;
+                    break;
+                case ("mt"):
+                    mt = value;
+                    break;
+                case ("pt"):
+                    pt = value;
+                    break;
+                case ("rs"):
+                    rs = value;
+                    break;
+                case ("rt"):
+                    rt = value;
+                    break;
+                case ("st"):
+                    st = value;
+                    break;
+                case ("tt"):
+                    tt = value;
+                    break;
+                case ("us"):
+                    us = value;
+                    break;
+                case ("vt"):
+                    vt = value;
+                    break;
+                case ("xt"):
+                    xt = value;
+                    break;
+                case ("zt"):
+                    zt = value;
+                    break;
+                default:
+                    throw new IllegalArgumentException("Unknown colorant " + colorant);
+            }
+        });
     }
 }
