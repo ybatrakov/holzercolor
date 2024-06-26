@@ -13,9 +13,11 @@ public class Palette implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column
     @NotBlank
     private String name;
 
+    @Column
     private String rgb;
 
     @ManyToOne
@@ -26,7 +28,10 @@ public class Palette implements Serializable {
 
     @ManyToMany(mappedBy = "palettesFacade")
     private Set<Paint> paintsFacade = new HashSet<>();
-    
+
+    @Column
+    private String displayAs;
+
     public Integer getId() {
         return id;
     }
@@ -49,5 +54,9 @@ public class Palette implements Serializable {
 
     public PaletteType getType() {
         return paletteType;
+    }
+
+    public String getDisplayAs() {
+        return displayAs;
     }
 }

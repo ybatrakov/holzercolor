@@ -110,7 +110,10 @@ function renderPalettes(event, paletteTypeId, paletteTypeNick, paletteTypeShortN
                 $(palettes).each( function(i, palette) {
                     // Adding palette to the box.
                     // If a color is provided for the palette, save it to option's data
-                    var opt = $('<option>', { value: palette.id, text: palette.name });
+                    var opt = $('<option>', {
+                        value: palette.id,
+                        text: palette.displayAs != null ? palette.displayAs : palette.name
+                        });
                     if(palette.rgb != null) {
                         opt.data('rgb', palette.rgb);
                     }

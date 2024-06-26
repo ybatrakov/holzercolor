@@ -6,6 +6,7 @@ import com.yura.holzercolor.model.Paint;
 import com.yura.holzercolor.model.Palette;
 import com.yura.holzercolor.repository.BaseRepository;
 import com.yura.holzercolor.repository.PaletteRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.*;
@@ -14,8 +15,8 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@Slf4j
 public abstract class AbstractFormulaConverter<FormulaType extends Formula> implements FormulaConverter<FormulaType> {
-    private final static Pattern HOLZER_PATTERN = Pattern.compile("^\\d{3}$");
     private final static Pattern HOLZER_PATTERN2 = Pattern.compile("^ELE(MENTS|) (\\d{3})$", Pattern.CASE_INSENSITIVE);
     private final static Pattern NOVA_PATTERN = Pattern.compile("^(NOVA |)[A-Z]\\d{3}$", Pattern.CASE_INSENSITIVE);
     private final static Pattern NCS_PATTERN1 = Pattern.compile("^NCS ([A-Z])([^ ]+)$");
@@ -48,13 +49,16 @@ public abstract class AbstractFormulaConverter<FormulaType extends Formula> impl
             }
         }
 
-        String paletteName = normalizePaletteName(tokens[0], line);
-        Palette palette = paletteRepository.findByName(paletteName)
-                .orElseThrow(() -> new IllegalArgumentException("Palette is invalid for formula " + line));
+        String paletteName = normalizePaletteName(tokens[0]);
+        Optional<Palette> palette = paletteRepository.findByName(paletteName);
+        if(!palette.isPresent()) {
+            log.warn("Palette '" + paletteName + "' is invalid for formula " + line);
+            return Optional.empty();
+        }
 
         String baseStr = normalizeBaseName(tokens[1]);
         Base base = baseRepository.findByName(baseStr)
-                .orElseThrow(() -> new IllegalArgumentException("Base is invalid for formula " + line));
+                .orElseThrow(() -> new IllegalArgumentException("Base '" + baseStr + "' is invalid for formula " + line));
 
         HashMap<String, Double> params = new HashMap<>();
         for(int i = 2; i + 1 < tokens.length; i += 2) {
@@ -67,16 +71,13 @@ public abstract class AbstractFormulaConverter<FormulaType extends Formula> impl
             params.put(col, price / volume);
         }
 
-        return Optional.of(createFormula(paint, palette, base, params));
+        return Optional.of(createFormula(paint, palette.get(), base, params));
     }
 
     protected abstract FormulaType createFormula(Paint paint, Palette palette, Base base, Map<String, Double> params);
 
-    private static String normalizePaletteName(String name, String line) {
+    private static String normalizePaletteName(String name) {
         name = name.replaceAll(" {2,}", " ");
-        if(HOLZER_PATTERN.matcher(name).matches()) {
-            return name;
-        }
         {
             // ELEMENTS 123 -> 123
             Matcher m = HOLZER_PATTERN2.matcher(name);
@@ -96,14 +97,9 @@ public abstract class AbstractFormulaConverter<FormulaType extends Formula> impl
                 // NCS S0300-N -> NCS S 0300-N
                 return "NCS " + m.group(1) + " " + m.group(2);
             }
-            return name;
         }
 
-        if(name.startsWith("RAL ")) {
-            return name;
-        }
-
-        throw new IllegalArgumentException("Unsupported palette in formula " + line);
+        return name;
     }
 
     private static String normalizeBaseName(String name) {
