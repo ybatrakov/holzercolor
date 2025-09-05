@@ -41,9 +41,6 @@ public abstract class AbstractFormulaUploadController<ColorFormulaType extends F
         try (BufferedReader br = new BufferedReader(new InputStreamReader(file.getInputStream()))) {
             List<ColorFormulaType> formulas = formulaConverter.convert(paint, volume, br.lines());
             if(!formulas.isEmpty()) {
-                log.info("Destroying formulas for paint {}", paint.getName());
-                cleanupFormulas(paintId);
-
                 formulaProcessor.process(formulas);
             }
             log.info("Uploaded {} formulas for paint {}", formulas.size(), paint.getName());
@@ -54,6 +51,4 @@ public abstract class AbstractFormulaUploadController<ColorFormulaType extends F
         }
 
     }
-
-    protected abstract void cleanupFormulas(Integer paintId);
 }

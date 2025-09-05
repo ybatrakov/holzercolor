@@ -20,7 +20,8 @@ public abstract class AbstractFormulaConverter<FormulaType extends Formula> impl
     private final static Pattern HOLZER_PATTERN2 = Pattern.compile("^ELE(MENTS|) (\\d{3})$", Pattern.CASE_INSENSITIVE);
     private final static Pattern NOVA_PATTERN = Pattern.compile("^(NOVA |)[A-Z]\\d{3}$", Pattern.CASE_INSENSITIVE);
     private final static Pattern NCS_PATTERN1 = Pattern.compile("^NCS ([A-Z])([^ ]+)$");
-    private final static List<String> IGNORED_PALETTES = Arrays.asList("Caparol", "Dulux", "Tikkurila");
+    private final static Pattern CAP_DU_SYM_PATTERN = Pattern.compile("^(CAP(\\.|AROL)|DULUX|TIKKURILA) (.+)$");
+    private final static List<String> IGNORED_PALETTES = List.of();
 
     private final PaletteRepository paletteRepository;
     private final BaseRepository baseRepository;
@@ -51,7 +52,7 @@ public abstract class AbstractFormulaConverter<FormulaType extends Formula> impl
 
         String paletteName = normalizePaletteName(tokens[0]);
         Optional<Palette> palette = paletteRepository.findByName(paletteName);
-        if(!palette.isPresent()) {
+        if(palette.isEmpty()) {
             log.warn("Palette '" + paletteName + "' is invalid for formula " + line);
             return Optional.empty();
         }
@@ -90,6 +91,18 @@ public abstract class AbstractFormulaConverter<FormulaType extends Formula> impl
                 return name.toUpperCase();
             }
             return "NOVA " + name;
+        }
+        {
+            Matcher m = CAP_DU_SYM_PATTERN.matcher(name);
+            if (m.matches()) {
+                var upper = name.toUpperCase();
+                if (upper.startsWith("CAP")) {
+                    return "CAPAROL " + m.group(3);
+                } else if (upper.startsWith("TIKKURILA")) {
+                    return "SYMPHONY " + m.group(3);
+                }
+                return name;
+            }
         }
         if(name.startsWith("NCS ")) {
             Matcher m = NCS_PATTERN1.matcher(name);

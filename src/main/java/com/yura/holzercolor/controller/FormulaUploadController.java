@@ -29,9 +29,4 @@ public class FormulaUploadController extends AbstractFormulaUploadController<Col
     public ResponseEntity<String> handleFileUpload(@RequestParam("file") MultipartFile file, @RequestParam("paintId") Integer paintId, @RequestParam("volume") Double volume) {
         return upload(file, paintId, volume);
     }
-
-    @Override
-    protected void cleanupFormulas(Integer paintId) {
-        formulaRepository.deleteByPaintId(paintId);
-    }
 }
